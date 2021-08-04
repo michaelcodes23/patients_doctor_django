@@ -12,6 +12,9 @@ class Doctor (models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f"doctors/{self.id}"
+
 class Patient (models.Model):
     name = models.CharField(max_length=150)
     age = models.IntegerField()
@@ -24,8 +27,34 @@ class Patient (models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return f"/{self.id}"
+        return f"/patients/{self.id}"
+    # def get_absolute_url(self):
+    #     return reverse('detail', kwargs={'id': self.id})
+
+class Medication (models.Model):
+    name = models.CharField(max_length=250)
+    amount = models.CharField(max_length=250)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return f"/medications/{self.id}"
 
 class PatientDoctor(models.Model):
     patient = models.ForeignKey(Patient, on_delete= models.CASCADE, default = 1, related_name='patients')
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, default = 1, related_name='doctors')
+    medicine = models.ForeignKey(Medication, on_delete= models.CASCADE, default = 1, related_name='medicine')
+
+# class MedicationDoctor (models.Model):
+#     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, default = 1, related_name='doctors')
+#     medicine = models.ForeignKey(Medications, on_delete= models.CASCADE, default = 1, related_name='medicine')
+
+
+# class MedicationPatient (models.Model):
+#     patient = models.ForeignKey(Patient, on_delete= models.CASCADE, default = 1, related_name='patients')
+#     medicine = models.ForeignKey(Medications, on_delete= models.CASCADE, default = 1, related_name='medicine')
+
+
+

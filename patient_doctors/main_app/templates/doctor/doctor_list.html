@@ -1,0 +1,23 @@
+{% extends 'base.html'%} 
+<!-- Hey django, look for 'block content' in base.html and insert the content below there -->
+{% block content %}
+<h1 style="text-decoration: underline">Doctors List</h1>
+
+
+
+{%for doctor in doctors%}
+    <div class = 'card'>
+        <div class = 'card-content'> 
+            <h3>Doctor Name: <a href = "/doctors/{{ doctor.id }}"">{{doctor.name}}</a></h3>
+            <p>Age: {{doctor.age}}</p>
+            <p>Specialization: {{doctor.specialization}}</p>
+        </div>
+        <div class = "card-action">
+            <a href = " {% url 'doctor-update' doctor.id%}">Edit</a>
+            <a href = " {% url 'doctor-delete' doctor.id%}">Delete</a>
+        </div>
+    </div>
+
+{% endfor %}
+
+{% endblock %}
