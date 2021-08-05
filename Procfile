@@ -1,1 +1,1 @@
-web: gunicorn patients_doctor_django.wsgi
+web: gunicorn patient_doctors.wsgi
